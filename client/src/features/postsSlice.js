@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosServerInstance, axiosOriginalInstance } from "../../api/axiosInstance";
-import socket from "../../api/socket.js";
+import { axiosServerInstance, axiosOriginalInstance } from "../api/axiosInstance.js";
+import socket from "../api/socket.js";
 
 // Estado inicial del slice de posts
 const initialState = {

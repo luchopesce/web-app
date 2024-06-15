@@ -5,11 +5,9 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import { BrowserRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <HelmetProvider>
   <BrowserRouter>
   <Provider store={store}>
   <Suspense>
@@ -17,6 +15,5 @@ root.render(
     </Suspense>
   </Provider>,
   </BrowserRouter>
-</HelmetProvider>
 
 );

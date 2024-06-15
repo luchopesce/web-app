@@ -5,7 +5,7 @@ import {
   fetchCommentsByPostId,
   selectCommentsByPostId,
   selectCommentsStatusByPostId,
-} from "../features/posts/commentSlice";
+} from "../features/commentSlice";
 
 export const useComments = (postId, isOpen) => {
   const dispatch = useDispatch();

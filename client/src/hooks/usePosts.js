@@ -13,7 +13,7 @@ import {
   selectGetTags,
   selectPostTag,
   selectPostsFilter,
-} from "../features/posts/postsSlice";
+} from "../features/postsSlice";
 import socket from "../api/socket.js";
 
 export const usePosts = () => {
@@ -35,9 +35,6 @@ export const usePosts = () => {
       socket.emit("getPosts");
     });
 
-    socket.on("disconnect", () => {
-      toggleDataSource();
-    });
 
     dispatch(subscribeToPosts());
 

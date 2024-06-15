@@ -3,9 +3,10 @@ import { options } from "../constants/options.js";
 import { fetchData } from '../utils/fetchData.js'; 
 
 const fetchPost = async () => {
-  const { apiUrl, appId } = options.api;
+  const { urlApi, appId } = options.api;
   try {
-    const url = `${apiUrl}/post`;
+    const url = `${urlApi}/post`
+    console.log("estpo viene ", url);
     const headers = { 'app-id': appId};
     const data = await fetchData(url, headers);
     const posts = data.data.map((item) => ({

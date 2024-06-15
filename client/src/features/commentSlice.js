@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosOriginalInstance } from "../../api/axiosInstance";
+import { axiosOriginalInstance } from "../api/axiosInstance";
 
 // Estado inicial del slice de comentarios
 const initialState = {
