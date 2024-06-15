@@ -10,14 +10,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import { fDate } from "../../utils/format-time";
 import { fShortenNumber } from "../../utils/format-number";
-import Iconify from "../iconify/iconify";
-import SvgColor from "../svg-color/svg-color";
+import Iconify from "../../helpers/iconify/iconify";
+import SvgColor from "../../helpers/svg-color/svg-color";
 import CommentModal from "../Comments/CommentModal"; // Importar el componente modal aquí
 
 export default function PostCard({ post }) {
-  const { id, owner, image, text, publishDate, likes, tags } = post;
+  const { id, owner, image, text, publishDate, likes } = post;
   const [modalOpen, setModalOpen] = useState(false);
-
 
   //console.log("Post Data:", post); // Log para depurar los datos del post
   //console.log("Owner:", owner);

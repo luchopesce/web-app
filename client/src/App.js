@@ -1,13 +1,14 @@
 import React from 'react';
-import HomePage from './pages/HomePage';
+import Router from './routes/sections';
 import ThemeProvider from './theme';
+import {useScrollToTop} from './hooks/use-scroll-to-top.js'
 
 const App = () => {
+  useScrollToTop();
+
   return (
     <ThemeProvider>
-    <div>
-      <HomePage />
-    </div>
+      <Router />
     </ThemeProvider>
   );
 };
