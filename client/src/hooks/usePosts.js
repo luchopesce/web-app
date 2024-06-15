@@ -35,7 +35,6 @@ export const usePosts = () => {
       socket.emit("getPosts");
     });
 
-
     dispatch(subscribeToPosts());
 
     if (postsStatus === "idle" || postsStatus === "disconnected") {
