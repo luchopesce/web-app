@@ -4,11 +4,11 @@ dotenv.config();
 export const options = {
   app: {
     name: 'web-app',
-    apiURL: `${process.env.BASE_API_URL}`,
-    clientURL: process.env.CLIENT_URL
+    apiURL: `${process.env.BASE_API_URL}` || 'http://localhost:8080',
+    clientURL: process.env.CLIENT_URL || 'http://localhost:3000'
   },
   server: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 8080,
   },
   database: {
     mongoUrl: process.env.MONGO_URL,
