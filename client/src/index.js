@@ -1,24 +1,23 @@
 import React from "react";
-import { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { Provider } from "react-redux";
-import store from "./app/store";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvider from "./hooks/useAuth.js";
 import { HelmetProvider } from "react-helmet-async";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./app/store"; // Ajusta la ruta según la ubicación real de tu archivo store
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <HelmetProvider>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Suspense>
-          <AuthProvider>
+<React.StrictMode>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
             <App />
-          </AuthProvider>
-        </Suspense>
-      </BrowserRouter>
-    </Provider>
-  </HelmetProvider>
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
+    </HelmetProvider>
+  </React.StrictMode>,
 );
