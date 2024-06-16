@@ -1,4 +1,3 @@
-// src/hooks/usePosts.js
 import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,10 +30,25 @@ export const usePosts = () => {
   }, [dispatch, useServer]);
 
   useEffect(() => {
-    socket.on("connect", () => {
+    const handleConnect = () => {
+      console.log("Socket connected.");
       socket.emit("getPosts");
-    });
+    };
 
+    const handleDisconnect = () => {
+      console.log("Socket disconnected.");
+      toggleDataSource();
+    };
+
+    // Suscribirse a eventos de conexión y desconexión
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+
+    if (socket.connected) {
+      handleConnect();
+    }
+
+    // Suscribirse a los posts y cargarlos si es necesario
     dispatch(subscribeToPosts());
 
     if (postsStatus === "idle" || postsStatus === "disconnected") {
@@ -42,6 +56,8 @@ export const usePosts = () => {
     }
 
     return () => {
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
       socket.off("posts");
     };
   }, [dispatch, postsStatus, useServer, toggleDataSource]);

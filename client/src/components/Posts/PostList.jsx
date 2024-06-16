@@ -3,6 +3,7 @@ import React from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
 import PostCard from "./PostCard";
+import PropTypes from "prop-types";
 import { CircularProgress } from "@mui/material";
 
 const PostList = ({ posts, postsStatus, filteredPosts }) => {
@@ -25,4 +26,9 @@ const PostList = ({ posts, postsStatus, filteredPosts }) => {
   );
 };
 
+PostList.propTypes = {
+  posts: PropTypes.array.isRequired,
+  postsStatus: PropTypes.bool.isRequired,
+  filteredPosts: PropTypes.array.isRequired,
+};
 export default PostList;

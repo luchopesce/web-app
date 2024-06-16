@@ -22,6 +22,7 @@ const PostContainer = () => {
     toggleDataSource,
   } = usePosts();
 
+
   return (
     <Container>
       <Stack
@@ -31,26 +32,28 @@ const PostContainer = () => {
         mb={5}
       >
         <Typography variant="h4">Posts</Typography>
-
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-          onClick={toggleDataSource}
-        >
-          {useServer ? "Switch to External API" : "Switch to Server"}
-        </Button>
+        {(postsStatus !== "loading" || postsStatus === "connected") && (
+          <Button
+            variant="contained"
+            color="inherit"
+            startIcon={<Iconify icon="eva:plus-fill" />}
+            onClick={toggleDataSource}
+          >
+            {useServer ? "Switch to External API" : "Switch to Server"}
+          </Button>
+        )}
       </Stack>
 
-      {(postsStatus === "succeeded" || postsStatus === "connected") && posts.length > 0 && (
-        <TagFilter
-          uniqueTags={uniqueTags}
-          selectedTag={selectedTag}
-          filteredPosts={filteredPosts}
-          handleTagClick={handleTagClick}
-          handleClearFilter={handleClearFilter}
-        />
-      )}
+      {(postsStatus === "succeeded" || postsStatus === "connected") &&
+        posts.length > 0 && (
+          <TagFilter
+            uniqueTags={uniqueTags}
+            selectedTag={selectedTag}
+            filteredPosts={filteredPosts}
+            handleTagClick={handleTagClick}
+            handleClearFilter={handleClearFilter}
+          />
+        )}
 
       <PostList
         posts={posts}

@@ -18,9 +18,6 @@ export default function PostCard({ post }) {
   const { id, owner, image, text, publishDate, likes } = post;
   const [modalOpen, setModalOpen] = useState(false);
 
-  //console.log("Post Data:", post); // Log para depurar los datos del post
-  //console.log("Owner:", owner);
-
   const toggleModal = () => {
     setModalOpen(!modalOpen);
   };

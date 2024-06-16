@@ -6,7 +6,6 @@ const fetchPost = async () => {
   const { urlApi, appId } = options.api;
   try {
     const url = `${urlApi}/post`
-    console.log("estpo viene ", url);
     const headers = { 'app-id': appId};
     const data = await fetchData(url, headers);
     const posts = data.data.map((item) => ({
