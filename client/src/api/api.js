@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'https://web-app-6qpp.onrender.com/api',
   withCredentials: true,
 });
 
 export const loginWithGoogle = () => {
-  window.location.href = 'http://localhost:8080/api/auth/google';
+  window.location.href = 'https://web-app-6qpp.onrender.com/api/auth/google';
 };
 
 export const verifyToken = async (token) => {
