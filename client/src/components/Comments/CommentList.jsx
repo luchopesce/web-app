@@ -1,6 +1,5 @@
 // src/components/CommentList.js
 import React from "react";
-import PropTypes from "prop-types";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
@@ -62,11 +61,6 @@ const CommentList = ({ comments, status }) => {
       ))}
     </>
   );
-};
-
-CommentList.propTypes = {
-  comments: PropTypes.array.isRequired,
-  status: PropTypes.bool.isRequired,
 };
 
 export default CommentList;

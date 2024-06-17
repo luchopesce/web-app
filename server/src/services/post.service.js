@@ -1,5 +1,5 @@
 import postModel from "../models/post.model.js";
-import { options } from "../constants/options.js";
+import { options } from "../config/options.js";
 import { fetchData } from '../utils/fetchData.js'; 
 
 const fetchPost = async () => {
