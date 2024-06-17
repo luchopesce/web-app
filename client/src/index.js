@@ -13,7 +13,7 @@ root.render(
     <HelmetProvider>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
+          <BrowserRouter basename="/web-app">
             <App />
           </BrowserRouter>
         </PersistGate>
