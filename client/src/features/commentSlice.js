@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosOriginalInstance } from "../api/axiosInstance";
+import { apiExternInstance } from "../api/api";
 
 // Estado inicial del slice de comentarios
 const initialState = {
@@ -13,9 +13,7 @@ export const fetchCommentsByPostId = createAsyncThunk(
   "comments/fetchCommentsByPostId",
   async (postId) => {
     try {
-      const response = await axiosOriginalInstance.get(
-        `post/${postId}/comment`,
-      );
+      const response = await apiExternInstance.get(`post/${postId}/comment`);
       return { postId, data: response.data.data }; // Devuelve el ID de post junto con los comentarios
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -29,7 +27,6 @@ const commentsSlice = createSlice({
   name: "comments",
   initialState, // Estado inicial definido anteriormente
   reducers: {
-    // Puedes añadir más reducers según sea necesario
     setStatus: (state, action) => {
       const { postId, status } = action.payload;
       state.status[postId] = status;
@@ -59,7 +56,6 @@ export const { setStatus } = commentsSlice.actions;
 
 export default commentsSlice.reducer;
 
-// Selectores
 export const selectCommentsByPostId = (state, postId) =>
   state.comments.commentsByPostId[postId];
 export const selectCommentsStatusByPostId = (state, postId) =>

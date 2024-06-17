@@ -43,7 +43,7 @@ router.get(
       expiresIn: options.jwt.tokenLife,
     });
     // const jwtToken = `Bearer ${token}`;
-    console.log(token);
+    // console.log(token);
     res.redirect(`${options.app.clientURL}/auth?token=${token}`);
   }
 );

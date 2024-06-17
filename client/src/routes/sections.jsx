@@ -17,13 +17,12 @@ const Router = () => {
         </Suspense>
       ),
       children: [
-        { path: "/posts", element: <PostsPage /> }, // Cambiado de LayoutPage a PostsPage como página inicial
+        { path: "/posts", element: <PostsPage /> }, 
         { path: "/auth", element: <AuthCallback /> },
         {
           element: <PrivateRoute />,
           children: [
             { path: "/users", element: <UsersPage /> },
-            // Agrega más rutas protegidas aquí si es necesario
           ],
         },
       ],

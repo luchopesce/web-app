@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosOriginalInstance } from "../api/axiosInstance.js";
-import socket from "../api/socket.js";
+import { apiExternInstance } from "../api/api.js";
 
 const initialState = {
   users: [],
@@ -10,7 +9,7 @@ const initialState = {
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   try {
-    const response = await axiosOriginalInstance.get("/user");
+    const response = await apiExternInstance.get("/user");
     const data = response.data.data;
     return data;
   } catch (error) {
@@ -18,20 +17,6 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
     throw error;
   }
 });
-
-export const subscribeToUsers = () => (dispatch) => {
-  socket.on("users", (data) => {
-    dispatch(updateUsers(data));
-  });
-
-  socket.on("connect", () => {
-    dispatch(setStatus("connected"));
-  });
-
-  socket.on("disconnect", () => {
-    dispatch(setStatus("disconnected"));
-  });
-};
 
 const usersSlice = createSlice({
   name: "users",
@@ -44,12 +29,8 @@ const usersSlice = createSlice({
     setStatus: (state, action) => {
       state.status = action.payload;
     },
-    updateUsers: (state, action) => {
-      state.users = action.payload;
-    },
   },
   extraReducers: (builder) => {
-    // Manejo de acciones asíncronas con createAsyncThunk
     builder
       .addCase(fetchUsers.pending, (state) => {
         state.status = "loading";
@@ -65,11 +46,8 @@ const usersSlice = createSlice({
   },
 });
 
-export const { setStatus, setUsers, updateUsers } = usersSlice.actions;
-
 export default usersSlice.reducer;
 
 // Selectores
 export const selectAllUsers = (state) => state.users.users;
 export const selectUsersStatus = (state) => state.users.status;
-export const selectUsersError = (state) => state.users.error;

@@ -1,6 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { verifyToken } from "../api/api";
+import { apiServerInstance } from "../api/api";
+
+export const verifyToken = async (token) => {
+  // console.log(token);
+  const response = await apiServerInstance.get("/auth/verify", {
+    headers: { Authorization: `Bearer ${token}` },
+    withCredentials: true,
+  });
+  // console.log(response.data);
+  return response.data;
+};
 
 // Crear thunk asincrónico para verificar el token
 export const verifyAsync = createAsyncThunk(
@@ -10,11 +20,10 @@ export const verifyAsync = createAsyncThunk(
       const response = await verifyToken(token);
       return response.data; // Devuelve solo los datos serializables
     } catch (error) {
-      return rejectWithValue(error.response.data); // Maneja errores de forma adecuada
+      return rejectWithValue(error.response.data);
     }
   }
 );
-
 
 // Estado inicial del slice de autenticación
 const initialState = {

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosServerInstance, axiosOriginalInstance } from "../api/axiosInstance.js";
+import { apiExternInstance, apiServerInstance } from "../api/api.js";
 import socket from "../api/socket.js";
 
 // Estado inicial del slice de posts
@@ -10,7 +10,7 @@ const initialState = {
   error: null,
   useServer: true, // Nuevo estado para controlar la fuente de datos
   uniqueTags: [], // Estado para almacenar los tags únicos
-  selectedTag: "" // Estado para almacenar el tag seleccionado
+  selectedTag: "", // Estado para almacenar el tag seleccionado
 };
 
 // Thunk asíncrono para obtener los posts desde la API
@@ -19,8 +19,8 @@ export const fetchPosts = createAsyncThunk(
   async (_, { getState }) => {
     const state = getState();
     const axiosInstance = state.posts.useServer
-      ? axiosServerInstance
-      : axiosOriginalInstance;
+      ? apiServerInstance
+      : apiExternInstance;
     try {
       const response = await axiosInstance.get("/post");
       const data = state.posts.useServer
@@ -112,7 +112,7 @@ export const {
   setUseServer,
   setTagFilter,
   clearFilter,
-  setPosts
+  setPosts,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
