@@ -18,7 +18,7 @@ const Router = () => {
       ),
       children: [
         { path: "/posts", element: <PostsPage /> }, // Cambiado de LayoutPage a PostsPage como página inicial
-        { path: "/web-app/auth", element: <AuthCallback /> },
+        { path: "/auth", element: <AuthCallback /> },
         {
           element: <PrivateRoute />,
           children: [
