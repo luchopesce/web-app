@@ -5,7 +5,7 @@ import { selectIsAuthenticated } from "../../features/authSlice";
 
 const PrivateRoute = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   return <>{isAuthenticated ? <Outlet /> : <Navigate to="/home" />}</>;
 };

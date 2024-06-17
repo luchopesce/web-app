@@ -18,7 +18,7 @@ const AuthCallback = () => {
       // Disparar la acción asincrónica para verificar el token
       dispatch(verifyAsync(token))
         .then(() => {
-          navigate("/home"); // Redirigir a la página de inicio después de verificar el token
+          navigate("/users"); // Redirigir a la página de inicio después de verificar el token
         })
         .catch((error) => {
           console.error("Error verifying token:", error);

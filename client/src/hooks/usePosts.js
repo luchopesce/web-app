@@ -31,16 +31,15 @@ export const usePosts = () => {
 
   useEffect(() => {
     const handleConnect = () => {
-      console.log("Socket connected.");
+     // console.log("Socket connected.");
       socket.emit("getPosts");
     };
 
     const handleDisconnect = () => {
-      console.log("Socket disconnected.");
+      // console.log("Socket disconnected.");
       toggleDataSource();
     };
 
-    // Suscribirse a eventos de conexión y desconexión
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
 
@@ -48,7 +47,6 @@ export const usePosts = () => {
       handleConnect();
     }
 
-    // Suscribirse a los posts y cargarlos si es necesario
     dispatch(subscribeToPosts());
 
     if (postsStatus === "idle" || postsStatus === "disconnected") {

@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithGoogle } from "../../api/api";
 import { logout, selectIsAuthenticated } from "../../features/authSlice";
 import { Box, Button, Stack } from "@mui/material";
 import Iconify from "../../helpers/iconify/iconify";
@@ -8,9 +7,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const navigate = useNavigate(); // Hook para la navegación
-  const location = useLocation(); // Hook para obtener la ruta actual
+
+  const loginWithGoogle = () => {
+    window.location.href = `${process.env.REACT_APP_API_SERVER_URL}/auth/google`;
+  };
 
   const handleLoginClick = async () => {
     if (!isAuthenticated) {
@@ -21,11 +24,11 @@ const LoginButton = () => {
   };
 
   const handleUsersClick = () => {
-    navigate("/users"); // Navega hacia la ruta '/users'
+    navigate("/users");
   };
 
   const handlePostsClick = () => {
-    navigate("/posts"); // Navega hacia la ruta '/posts'
+    navigate("/posts");
   };
 
   return (
@@ -35,7 +38,7 @@ const LoginButton = () => {
           <Button
             variant="contained"
             color="inherit"
-            onClick={handleUsersClick} // Llama a handleUsersClick al hacer clic
+            onClick={handleUsersClick}
           >
             Users
           </Button>
@@ -46,7 +49,7 @@ const LoginButton = () => {
           <Button
             variant="contained"
             color="inherit"
-            onClick={handlePostsClick} // Llama a handlePostsClick al hacer clic
+            onClick={handlePostsClick} 
           >
             Posts
           </Button>

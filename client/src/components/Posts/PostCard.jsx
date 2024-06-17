@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
@@ -12,7 +11,7 @@ import { fDate } from "../../utils/format-time";
 import { fShortenNumber } from "../../utils/format-number";
 import Iconify from "../../helpers/iconify/iconify";
 import SvgColor from "../../helpers/svg-color/svg-color";
-import CommentModal from "../Comments/CommentModal"; // Importar el componente modal aquí
+import CommentModal from "../Comments/CommentModal";
 
 export default function PostCard({ post }) {
   const { id, owner, image, text, publishDate, likes } = post;
@@ -205,7 +204,3 @@ export default function PostCard({ post }) {
     </Grid>
   );
 }
-
-PostCard.propTypes = {
-  post: PropTypes.object.isRequired,
-};
