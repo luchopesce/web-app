@@ -32,7 +32,7 @@ router.get('/verify', (req, res) => {
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `${options.app.clientURL}/${options.app.name}/posts`,
+    failureRedirect: `${options.app.clientURL}/posts`,
     session: false,
   }),
   (req, res) => {
@@ -44,7 +44,7 @@ router.get(
     });
     // const jwtToken = `Bearer ${token}`;
     console.log(token);
-    res.redirect(`${options.app.clientURL}/${options.app.name}/auth?token=${token}`);
+    res.redirect(`${options.app.clientURL}/auth?token=${token}`);
   }
 );
 
