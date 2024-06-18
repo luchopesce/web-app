@@ -2,14 +2,19 @@ import jwt from 'jsonwebtoken';
 import { options } from '../config/options.js';
 
 const authMiddleware = (req, res, next) => {
-  const token = req.cookies['user-session'] || req.headers['authorization'];
+  const cookieToken = req.cookies['user-session'];
+  const headerToken = req.headers['authorization']?.split(' ')[1];
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
+  if (!cookieToken || !headerToken) {
+    return res.status(401).json({ message: 'Both tokens are required' });
+  }
+
+  if (cookieToken !== headerToken) {
+    return res.status(401).json({ message: 'Tokens do not match' });
   }
 
   try {
-    const decoded = jwt.verify(token.replace('Bearer ', ''), options.jwt.secret);
+    const decoded = jwt.verify(cookieToken, options.jwt.secret);
     req.user = decoded.user;
     next();
   } catch (error) {
