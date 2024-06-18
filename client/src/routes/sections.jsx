@@ -7,9 +7,18 @@ const PostsPage = lazy(() => import("../pages/PostsPage"));
 const UsersPage = lazy(() => import("../pages/UsersPage"));
 const AuthCallback = lazy(() => import("../pages/AuthCallback"));
 const PrivateRoute = lazy(() => import("../components/Login/PrivateRoute"));
+const ProtectedPage = lazy(() => import("../pages/ProtectedPage"));
 
 const Router = () => {
   const routes = useRoutes([
+    {
+      path: "/auth",
+      element: (
+        <Suspense fallback={<CircularProgress />}>
+          <AuthCallback />
+        </Suspense>
+      ),
+    },
     {
       element: (
         <Suspense fallback={<CircularProgress />}>
@@ -17,12 +26,12 @@ const Router = () => {
         </Suspense>
       ),
       children: [
-        { path: "/posts", element: <PostsPage /> }, 
-        { path: "/auth", element: <AuthCallback /> },
+        { path: "/posts", element: <PostsPage /> },
         {
           element: <PrivateRoute />,
           children: [
             { path: "/users", element: <UsersPage /> },
+            { path: "/protected", element: <ProtectedPage /> },
           ],
         },
       ],

@@ -9,15 +9,13 @@ import { store, persistor } from "./app/store"; // Ajusta la ruta según la ubic
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<React.StrictMode>
-    <HelmetProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter >
-            <App />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </HelmetProvider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
+    </PersistGate>
+  </Provider>
 );

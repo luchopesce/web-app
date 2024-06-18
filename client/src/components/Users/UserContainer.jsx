@@ -1,4 +1,3 @@
-// src/components/PostContainer.js
 import React from "react";
 import { useUsers } from "../../hooks/useUsers";
 import Stack from "@mui/material/Stack";

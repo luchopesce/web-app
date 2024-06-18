@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, selectIsAuthenticated } from "../../features/authSlice";
 import { Box, Button, Stack } from "@mui/material";
 import Iconify from "../../helpers/iconify/iconify";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const loginWithGoogle = () => {
@@ -31,9 +30,13 @@ const LoginButton = () => {
     navigate("/posts");
   };
 
+  const handleToProtected = () => {
+    navigate("/protected");
+  };
+
   return (
     <Stack direction="row" justifyContent="flex-end">
-      {isAuthenticated && location.pathname !== "/users" && (
+      {isAuthenticated &&  (
         <Box display="flex" mt={2} mr={2}>
           <Button
             variant="contained"
@@ -44,17 +47,20 @@ const LoginButton = () => {
           </Button>
         </Box>
       )}
-      {isAuthenticated && location.pathname === "/users" && (
         <Box display="flex" mt={2} mr={2}>
           <Button
             variant="contained"
             color="inherit"
-            onClick={handlePostsClick} 
+            onClick={handlePostsClick}
           >
             Posts
           </Button>
         </Box>
-      )}
+      <Box display="flex" mt={2} mr={2}>
+        <Button variant="contained" color="inherit" onClick={handleToProtected}>
+          Page protected
+        </Button>
+      </Box>
       <Box display="flex" mt={2} mr={2}>
         <Button
           variant="contained"
