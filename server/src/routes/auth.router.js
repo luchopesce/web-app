@@ -14,21 +14,10 @@ router.get(
   })
 );
 
-router.get('/verify', (req, res) => {
-  const token = req.headers.authorization.split(' ')[1];
-  
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Failed to authenticate token' });
-    }
-
-    res.json(decoded); // Devuelve el token decodificado
-  });
+router.get("/verify", authMiddleware, (req, res) => {
+  res.json({ verified: true });
 });
+
 router.get(
   "/google/callback",
   passport.authenticate("google", {
@@ -42,8 +31,12 @@ router.get(
     const token = jwt.sign(payload, options.jwt.secret, {
       expiresIn: options.jwt.tokenLife,
     });
-    // const jwtToken = `Bearer ${token}`;
-    // console.log(token);
+
+    res.cookie("user-session", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+
     res.redirect(`${options.app.clientURL}/auth?token=${token}`);
   }
 );

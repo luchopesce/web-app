@@ -4,7 +4,7 @@ dotenv.config();
 export const options = {
   app: {
     name: 'web-app',
-    apiURL: `${process.env.BASE_API_URL}` || 'http://localhost:8080',
+    apiURL: process.env.BASE_API_URL || 'http://localhost:8080',
     clientURL: process.env.CLIENT_URL || 'http://localhost:3000'
   },
   server: {
@@ -20,7 +20,7 @@ export const options = {
   google: {
     clientIdGoogle:  process.env.GOOGLE_CLIENT_ID,
     secretGoogle: process.env.GOOGLE_CLIENT_SECRET,
-    callbackGoogle: process.env.GOOGLE_CALLBACK_URL
+    callbackGoogle: `${process.env.BASE_API_URL}/auth/google/callback`,
   },
   api: {
     appId: process.env.APP_ID,

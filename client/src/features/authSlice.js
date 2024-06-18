@@ -1,36 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { apiServerInstance } from "../api/api";
-
-export const verifyToken = async (token) => {
-  // console.log(token);
-  const response = await apiServerInstance.get("/auth/verify", {
-    headers: { Authorization: `Bearer ${token}` },
-    withCredentials: true,
-  });
-  // console.log(response.data);
-  return response.data;
-};
-
-// Crear thunk asincrónico para verificar el token
-export const verifyAsync = createAsyncThunk(
-  "auth/verify",
-  async (token, { rejectWithValue }) => {
-    try {
-      const response = await verifyToken(token);
-      return response.data; // Devuelve solo los datos serializables
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
 // Estado inicial del slice de autenticación
 const initialState = {
   isAuthenticated: false,
   user: null,
-  status: "idle",
-  error: null,
+  userData: null, //ya lo trae desde antes es para probar una peticion a una ruta nada mas
   token: localStorage.getItem("token") || null, // Obtener el token del localStorage al inicio
 };
 
@@ -50,33 +25,22 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.token = null;
+      state.userData = null;
       localStorage.removeItem("token"); // Remover el token del localStorage al hacer logout
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(verifyAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(verifyAsync.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.isAuthenticated = true;
-        state.user = action.payload;
-      })
-      .addCase(verifyAsync.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
-      });
+    setUserData(state, action) {
+      console.log(action.payload)
+      state.userData = action.payload;
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setUserData, clearUserData } = authSlice.actions;
 
 // Selectores para acceder al estado de autenticación desde Redux
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectUser = (state) => state.auth.user;
-export const selectAuthStatus = (state) => state.auth.status;
-export const selectAuthError = (state) => state.auth.error;
 export const selectToken = (state) => state.auth.token;
+export const selectUserData = (state) => state.auth.userData;
 
 export default authSlice.reducer;
